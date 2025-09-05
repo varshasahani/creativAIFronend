@@ -1,0 +1,30 @@
+:root {
+    /* Colors */
+    --color-primary: #a855f7; /* Vibrant Purple */
+    --color-secondary: #a110da; /* Pink Accent */
+    --color-background: #1a1b2e; /* Deep Dark Navy */
+    --color-surface: #2d2f45; /* Dark Gray for cards and surfaces */
+    --color-text-primary: #ffffff; /* White for primary text */
+    --color-text-secondary: #c4c4d1; /* Light Gray for secondary text */
+    --color-hover: #9333ea; /* Darker Purple for hover effects */
+    --color-border: #3e405e; /* Subtle border color */
+    --color-gradient: linear-gradient(135deg, #a855f7, #ec4899); /* Purple-Pink Gradient */
+
+    /* Fonts */
+    --font-family: 'Poppins', sans-serif; /* Modern and clean font */
+    --font-size-base: 16px;
+    --font-size-large: 1.5rem;
+    --font-size-small: 0.875rem;
+
+    /* Spacing */
+    --spacing-small: 8px;
+    --spacing-medium: 16px;
+    --spacing-large: 24px;
+
+    /* Border Radius */
+    --border-radius: 16px; /* More rounded for a softer, modern look */
+
+    /* Shadows */
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    --shadow-heavy: 0 8px 20px rgba(0, 0, 0, 0.4); /* Stronger shadow for modals/cards */
+}

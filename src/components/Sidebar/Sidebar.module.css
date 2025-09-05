@@ -1,0 +1,63 @@
+.sidebar {
+    flex-shrink: 0; /* Prevent the sidebar from shrinking */
+    width: 250px; /* Fixed width for the sidebar */
+    height: 100vh; /* Full height of the viewport */
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    padding: var(--spacing-large) 0;
+}
+
+.appName {
+    font-size: var(--font-size-large);
+    font-weight: bold;
+    text-align: center;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-large);
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+    padding: 0 var(--spacing-medium);
+}
+
+.menu-item {
+    padding: var(--spacing-medium);
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.menu-item:hover {
+    background-color: var(--color-hover);
+}
+
+.logout {
+    margin-bottom: 35px; /* Push the logout button to the bottom */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoutButton {
+    background-color: var(--color-secondary);
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--color-text-primary);
+    padding: var(--spacing-small) var(--spacing-medium);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logoutButton:hover {
+    background-color: var(--color-hover);
+    transform: translateY(-2px);
+}
