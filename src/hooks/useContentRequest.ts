@@ -31,7 +31,13 @@ const useContentRequest = () => {
     };
 
     // Logic for fetching past content requests
-    const fetchPastContent = async (userId: string, accessToken: string, page: number = 1, limit: number = 10) => {
+    const fetchPastContent = async (accessToken: string, page: number = 1, limit: number = 10) => {
+        const userId = localStorage.getItem('userId'); // Retrieve userId from localStorage
+        if (!userId) {
+            console.error('userId is undefined. Please log in again.');
+            return;
+        }
+
         setLoading(true);
         setError(null);
         try {
@@ -43,6 +49,7 @@ const useContentRequest = () => {
             setLoading(false);
         }
     };
+
 
     return { loading, error, response, pastContent, sendContentRequest, fetchPastContent };
 };

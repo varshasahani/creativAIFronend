@@ -11,9 +11,15 @@ const PastContentCard: React.FC<PastContentCardProps> = ({ userId, accessToken }
     const { loading, error, pastContent, fetchPastContent } = useContentRequest();
 
     useEffect(() => {
-        fetchPastContent(userId, accessToken);
+        const storedUserId = userId || localStorage.getItem('userId'); // Fallback to localStorage
+        if (storedUserId && accessToken) {
+            fetchPastContent(accessToken); // Call fetchPastContent
+        }
     }, [userId, accessToken, fetchPastContent]);
 
+    if (!userId && !localStorage.getItem('userId')) {
+        return <p>User ID is not available. Please log in again.</p>;
+    }
     return (
         <div className={styles.card}>
             <h2 className={styles.title}>Past Content Requests</h2>

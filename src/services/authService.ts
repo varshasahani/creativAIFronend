@@ -24,15 +24,30 @@ export const registerUser = async (payload: any): Promise<any> => {
 };
 
 // Login User
-export const loginUser = async (payload: any): Promise<any> => {
+export const loginUser = async (payload: { email: string; password: string }): Promise<any> => {
     try {
+        // Make the POST request to the login endpoint
         const response = await axios.post(`${BASE_URL}/auth/login`, payload, {
             headers: { 'Content-Type': 'application/json' },
         });
-        return response.data;
+        // Ensure the response contains the necessary fields
+        if (!response.data || !response.data.user || !response.data.user?._id) {
+            throw new Error('Invalid response from the server. Missing userId.');
+        }
+
+        // Return the response data
+        return {
+            userId: response.data.user?._id, // Extract userId
+            email: response.data.user.email, // Extract email
+            accessToken: response.data.accessToken, // Extract accessToken
+            refreshToken: response.data.refreshToken, // Extract refreshToken
+        };
     } catch (error: any) {
+        // Log the error for debugging
         console.error('Error logging in user:', error.response || error.message);
-        throw error.response?.data || error.message;
+
+        // Throw a user-friendly error message
+        throw error.response?.data || { message: 'An error occurred during login.' };
     }
 };
 

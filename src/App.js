@@ -9,16 +9,27 @@ import SettingsCard from './components/SettingsCard/SettingsCard.tsx';
 import Login from './components/Auth/Login.tsx';
 import SignUp from './components/Auth/SignUp.tsx';
 import './App.css';
+import { loginUser } from './services/authService.ts';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false); // Authentication state
     const [activeComponent, setActiveComponent] = useState('generateContent'); // Active component state
     const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
 
-    const handleLogin = () => {
-        console.log('isAuthenticated2:', isAuthenticated);
-        setIsAuthenticated(true); // Set isAuthenticated to true after successful login
-        console.log('isAuthenticated:', isAuthenticated);
+    const handleLogin = async (credentials: { email: string; password: string }) => {
+        try {
+            const { userId, accessToken, refreshToken } = await loginUser(credentials);
+    
+            // Store tokens and userId in localStorage
+            localStorage.setItem('userId', userId);
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken);
+    
+            // Update authentication state
+            setIsAuthenticated(true);
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
     };
 
     const handleLogout = () => {

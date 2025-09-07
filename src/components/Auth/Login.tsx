@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../services/authService.ts';
 import styles from './Auth.module.css';
 
+interface LoginProps {
+    handleLogin: (credentials: { email: string; password: string }) => void;
+}
+
 const Login: React.FC<{ handleLogin: () => void }> = ({ handleLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,14 +24,14 @@ const Login: React.FC<{ handleLogin: () => void }> = ({ handleLogin }) => {
 
         try {
             const response = await loginUser(payload);
-            console.log('Login successful:', response);
 
             // Store tokens or user data in localStorage/sessionStorage if needed
             localStorage.setItem('accessToken', response.accessToken);
             localStorage.setItem('refreshToken', response.refreshToken);
-            localStorage.setItem('userId', response.user._id);
+            localStorage.setItem('userId', response.user?._id);
 
-            handleLogin(); // Update authentication state
+            const credentials = { email, password };
+            handleLogin(credentials); // Update authentication state
             navigate('/'); // Redirect to Generate Content page
         } catch (err: any) {
             setError(err.message || 'An error occurred during login.');
