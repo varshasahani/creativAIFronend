@@ -39,7 +39,7 @@
 .form button {
     grid-column: 1 / -1; /* Make the button span both columns */
     background-color: var(--color-primary);
-    color: var(--color-text-primary);
+    color: var(--contrast-text-primary);
     border: none;
     border-radius: var(--border-radius);
     padding: var(--spacing-small);
@@ -49,6 +49,7 @@
 
 .form button:hover {
     background-color: var(--color-hover);
+    color: var(--color-hover-accent);
 }
 
 .result {

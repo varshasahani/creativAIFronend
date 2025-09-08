@@ -51,7 +51,7 @@
     background-color: var(--color-secondary);
     border: none;
     border-radius: var(--border-radius);
-    color: var(--color-text-primary);
+    color: var(--contrast-text-primary);
     padding: var(--spacing-small) var(--spacing-medium);
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;

@@ -1,30 +1,138 @@
-:root {
+/* Default Theme (Light Mode) */
+[data-theme="light"] {
     /* Colors */
-    --color-primary: #a855f7; /* Vibrant Purple */
-    --color-secondary: #a110da; /* Pink Accent */
-    --color-background: #1a1b2e; /* Deep Dark Navy */
-    --color-surface: #2d2f45; /* Dark Gray for cards and surfaces */
-    --color-text-primary: #ffffff; /* White for primary text */
-    --color-text-secondary: #c4c4d1; /* Light Gray for secondary text */
-    --color-hover: #9333ea; /* Darker Purple for hover effects */
-    --color-border: #3e405e; /* Subtle border color */
-    --color-gradient: linear-gradient(135deg, #a855f7, #ec4899); /* Purple-Pink Gradient */
+    --color-primary: #000000; /* Black for primary text and elements */
+    --color-secondary: #4a4a4a; /* Dark Gray for secondary elements */
+    --color-background: #ffffff; /* White for the background */
+    --color-surface: #f5f5f5; /* Light Gray for surfaces like cards */
+    --color-text-primary: #353434; /* Black for primary content */
+    --color-text-secondary: #6d6d6d; /* Medium Gray for secondary text */
+    --contrast-text-primary: #ffffff;
+    --color-hover: #e0e0e0; /* Light Gray for hover effects */
+    --color-hover-accent: #0078d4; /* Blue for hover accent (e.g., links, buttons) */
+    --color-border: #dcdcdc; /* Subtle border color */
+    --color-gradient: linear-gradient(135deg, #f5f5f5, #ffffff); /* Light Gradient */
 
     /* Fonts */
-    --font-family: 'Poppins', sans-serif; /* Modern and clean font */
-    --font-size-base: 16px;
-    --font-size-large: 1.5rem;
-    --font-size-small: 0.875rem;
-
-    /* Spacing */
-    --spacing-small: 8px;
-    --spacing-medium: 16px;
-    --spacing-large: 24px;
-
-    /* Border Radius */
-    --border-radius: 16px; /* More rounded for a softer, modern look */
+   
+}
+/* Dark Mode Theme */
+[data-theme="dark"] {
+    /* Colors */
+    --color-primary: #e4e4e4; /* Light Gray for primary text and elements */
+    --color-secondary: #a1a1a1; /* Medium Gray for secondary elements */
+    --color-background: #121212; /* Deep Black-Gray for the background */
+    --color-surface: #1e1e1e; /* Slightly lighter Gray for surfaces like cards */
+    --color-text-primary: #e4e4e4; /* Light Gray for primary content */
+    --color-text-secondary: #a1a1a1; /* Medium Gray for secondary text */
+    --contrast-text-primary: #000000; /* Black for contrast text */
+    --color-hover: #292929; /* Darker Gray for hover effects */
+    --color-hover-accent: #1a73e8; /* Blue for hover accent (e.g., links, buttons) */
+    --color-border: #3a3a3a; /* Subtle border color */
+    --color-gradient: linear-gradient(135deg, #1e1e1e, #121212); /* Dark Gradient */
 
     /* Shadows */
-    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    --shadow-heavy: 0 8px 20px rgba(0, 0, 0, 0.4); /* Stronger shadow for modals/cards */
+    --shadow-light: 0 2px 8px rgba(255, 255, 255, 0.05); /* Subtle white shadow for depth */
+    --shadow-heavy: 0 4px 16px rgba(255, 255, 255, 0.1); /* Stronger white shadow for modals/cards */
+}
+
+/* Interactive Elements */
+button, a {
+    color: var(--color-primary);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-small) var(--spacing-medium);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    cursor: pointer;
+    transition: background-color var(--transition-speed), color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+button:hover, a:hover {
+    background-color: var(--color-hover);
+    color: var(--color-hover-accent);
+    box-shadow: var(--shadow-light);
+}
+
+button:focus, a:focus {
+    outline: 2px solid var(--color-hover-accent);
+    outline-offset: 2px;
+}
+
+/* Cards */
+.card {
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    padding: var(--spacing-medium);
+    transition: box-shadow var(--transition-speed);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-heavy);
+}
+
+/* Inputs */
+input, textarea {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-small);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+input:focus, textarea:focus {
+    border-color: var(--color-hover-accent);
+    box-shadow: 0 0 4px var(--color-hover-accent);
+    outline: none;
+}
+
+:root {
+    --font-family: 'Arial', sans-serif; /* Clean and modern font */
+--font-size-base: 16px;
+--font-size-large: 1.25rem;
+--font-size-small: 0.875rem;
+
+/* Spacing */
+--spacing-small: 8px;
+--spacing-medium: 16px;
+--spacing-large: 32px;
+
+/* Border Radius */
+--border-radius: 8px; /* Slightly rounded for a modern look */
+
+/* Shadows */
+--shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle black shadow for depth */
+--shadow-heavy: 0 4px 16px rgba(0, 0, 0, 0.2); /* Stronger black shadow for modals/cards */
+
+/* Transitions */
+--transition-speed: 0.3s; /* Smooth transition for hover effects */
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.theme-toggle:hover {
+    background-color: var(--color-hover);
+    color: var(--color-hover-accent);
 }

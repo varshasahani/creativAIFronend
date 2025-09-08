@@ -54,7 +54,7 @@
     padding: var(--spacing-small) var(--spacing-medium);
     font-size: var(--font-size-small);
     background-color: var(--color-secondary);
-    color: var(--color-text-primary);
+    color: var(--contrast-text-primary);
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
