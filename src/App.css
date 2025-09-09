@@ -15,8 +15,8 @@
 .auth-container {
   display: flex;
   flex-direction: column;
+  overflow: auto;
   align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically */
   min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
   width: 100vw; /* Full viewport width */
   background-color: var(--color-background);

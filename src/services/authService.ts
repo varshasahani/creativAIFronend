@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://dpeloytest.onrender.com/api/v1';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://content-creation-engine-production.up.railway.app/api/v1';
 
 // Helper function to get headers with Authorization
 const getHeaders = (accessToken: string) => ({
@@ -11,19 +11,49 @@ const getHeaders = (accessToken: string) => ({
 // Authentication APIs
 
 // Register User
-export const registerUser = async (payload: any): Promise<any> => {
+// export const registerUser = async (payload: any): Promise<any> => {
+//     try {
+//         const response = await axios.post(`${BASE_URL}/auth/register`, payload, {
+//             headers: { 'Content-Type': 'application/json' },
+//         });
+//         return response.data;
+//     } catch (error: any) {
+//         console.error('Error registering user:', error.response || error.message);
+//         throw error.response?.data || error.message;
+//     }
+// };
+export const registerUser = async (payload: {
+    name: string;
+    email: string;
+    password: string;
+    company: string;
+    phone: string;
+    preferences: {
+        defaultTone: string;
+        defaultLanguage: string;
+        preferredChannels: string[];
+        defaultProductType: string;
+    };
+    brandDescription: string;
+}) => {
     try {
-        const response = await axios.post(`${BASE_URL}/auth/register`, payload, {
-            headers: { 'Content-Type': 'application/json' },
+        const response = await fetch(`${BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload), // Send the payload as expected by the backend
         });
-        return response.data;
-    } catch (error: any) {
-        console.error('Error registering user:', error.response || error.message);
-        throw error.response?.data || error.message;
+
+        if (!response.ok) {
+            throw new Error('Registration failed');
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw error;
     }
 };
-
-// Login User
 export const loginUser = async (payload: { email: string; password: string }): Promise<any> => {
     try {
         // Make the POST request to the login endpoint

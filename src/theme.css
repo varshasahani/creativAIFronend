@@ -100,7 +100,7 @@ input:focus, textarea:focus {
 /* Spacing */
 --spacing-small: 8px;
 --spacing-medium: 16px;
---spacing-large: 32px;
+--spacing-large: 28px;
 
 /* Border Radius */
 --border-radius: 8px; /* Slightly rounded for a modern look */
