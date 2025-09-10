@@ -9,10 +9,10 @@ const useSidebar = (setActiveComponent: (component: string) => void): SidebarLog
     // Define menu items
     const menuItems = [
         { id: 'generateContent', label: 'Generate Content' },
-        { id: 'analytics', label: 'Analytics' },
+        // { id: 'analytics', label: 'Analytics' },
         { id: 'pastContent', label: 'Past Content' },
         { id: 'profile', label: 'Profile' },
-        { id: 'settings', label: 'Settings' },
+        // { id: 'settings', label: 'Settings' },
     ];
 
     // Handle menu item click
