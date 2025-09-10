@@ -17,8 +17,9 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveComponent, handleLogout }) =
                 {menuItems.map((item) => (
                     <div
                         key={item.id}
-                        className={styles['menu-item']}
+                        className={`${styles['menu-item']} ${item.disabled ? styles.disabled : ''}`}
                         onClick={() => handleMenuClick(item.id)}
+                        title={item.disabled ? item.tooltip : ''}
                     >
                         {item.label}
                     </div>

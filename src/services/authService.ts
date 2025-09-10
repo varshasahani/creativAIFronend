@@ -84,7 +84,8 @@ export const loginUser = async (payload: { email: string; password: string }): P
 // Get Profile
 export const getProfile = async (accessToken: string): Promise<any> => {
     try {
-        const response = await axios.get(`${BASE_URL}/auth/profile`, {
+        const userId = localStorage.getItem('userId');
+        const response = await axios.get(`${BASE_URL}/users/${userId}`, {
             headers: getHeaders(accessToken),
         });
         return response.data;

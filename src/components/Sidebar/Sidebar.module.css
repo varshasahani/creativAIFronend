@@ -61,3 +61,14 @@
     background-color: var(--color-hover);
     transform: translateY(-2px);
 }
+
+.disabled {
+    color: var(--color-text-secondary); /* Gray out the text for disabled items */
+    cursor: not-allowed; /* Change cursor to indicate disabled state */
+    opacity: 0.6; /* Reduce opacity for a faded look */
+}
+
+.disabled:hover {
+    background-color: transparent; /* Prevent hover effect on disabled items */
+    color: var(--color-text-secondary); /* Ensure text remains gray */
+}

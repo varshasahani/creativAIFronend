@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://dpeloytest.onrender.com/api/v1';
+const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://content-creation-engine-production.up.railway.app/api/v1';
 
 // Service for generating content
 export const createContentRequest = async (payload: any, accessToken: string): Promise<any> => {
