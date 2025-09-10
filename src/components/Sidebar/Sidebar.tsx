@@ -12,7 +12,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveComponent, handleLogout }) =
 
     return (
         <div className={styles.sidebar}>
-            <div className={styles.appName}>GenWrite</div>
+            <div className={styles.appName}>CreativAI</div>
             <nav className={styles.menu}>
                 {menuItems.map((item) => (
                     <div

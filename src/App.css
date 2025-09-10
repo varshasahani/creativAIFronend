@@ -16,6 +16,8 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
   align-items: center; /* Center horizontally */
   min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
   width: 100vw; /* Full viewport width */
@@ -30,6 +32,7 @@ form {
   padding: var(--spacing-large);
   background-color: var(--color-surface);
   border-radius: var(--border-radius);
+  
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Add a stronger shadow for better visibility */
   transform: translateX(0); /* Ensure no unintended horizontal translation */
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar.tsx';
 import GenerateContentCard from './components/GenerateContentCard/GenerateContentCard.tsx';
@@ -15,6 +15,14 @@ const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false); // Authentication state
     const [activeComponent, setActiveComponent] = useState('generateContent'); // Active component state
     const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
+
+    useEffect(() => {
+        // Check if tokens exist in localStorage
+        const accessToken = localStorage.getItem('accessToken');
+        if (accessToken) {
+            setIsAuthenticated(true);
+        }
+    }, []);
 
     const handleLogin = async (credentials: { email: string; password: string }) => {
         try {
