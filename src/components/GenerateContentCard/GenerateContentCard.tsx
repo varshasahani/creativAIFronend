@@ -4,49 +4,8 @@ import styles from './GenerateContentCard.module.css';
 
 const GenerateContentCard: React.FC = () => {
 
-    let { loading, error, responses, sendContentRequest } = useContentRequest();
-    const [response, setResponse] = useState([
-        {
-            _id: "68c1bbaa7c09ec96352b27fc",
-            requestId: "68c1bb947c09ec96352b27f5",
-            model: "gpt-4o",
-            contentType: "ad_copy",
-            content: {
-                channel: "Instagram",
-                language: "en",
-                tone: "casual",
-                title: "Glow On with Kumkumadi! ✨",
-                body: "Hey beauties! 🌿 Ready to say goodbye to acne and hello to radiant skin? Our Kumkumadi Face Serum is your skincare BFF. Designed for those who want that natural glow without the fuss. Perfect for your daily routine. 💁‍♀️ Try it now and feel the difference!",
-                cta: "Shop Now",
-                meta: {
-                    hashtags: ["#SkincareGoals", "#GlowUp", "#KumkumadiSerum"],
-                    emojis: ["🌿", "✨"],
-                },
-            },
-            status: "draft",
-            createdAt: "2024-01-01T00:00:00.000Z",
-        },
-        {
-            _id: "68c1bbaa7c09ec96352b27fc",
-            requestId: "68c1bb947c09ec96352b27f5",
-            model: "gpt-4o",
-            contentType: "ad_copy",
-            content: {
-                channel: "Instagram",
-                language: "en",
-                tone: "casual",
-                title: "Glow On with Kumkumadi! ✨",
-                body: "Hey beauties! 🌿 Ready to say goodbye to acne and hello to radiant skin? Our Kumkumadi Face Serum is your skincare BFF. Designed for those who want that natural glow without the fuss. Perfect for your daily routine. 💁‍♀️ Try it now and feel the difference!",
-                cta: "Shop Now",
-                meta: {
-                    hashtags: ["#SkincareGoals", "#GlowUp", "#KumkumadiSerum"],
-                    emojis: ["🌿", "✨"],
-                },
-            },
-            status: "draft",
-            createdAt: "2024-01-01T00:00:00.000Z",
-        },
-    ]);
+    let { loading, error, response, sendContentRequest } = useContentRequest();
+  
     const [formData, setFormData] = useState({
         productName: '',
         tone: '',
