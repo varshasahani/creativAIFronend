@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ProfileCard.module.css';
 import { getProfile, updateProfile } from '../../services/authService.ts';
+import MultiSelect from '../common/MultiSelect.tsx';
 
 const languageMap = {
     en: 'English',
@@ -266,24 +267,27 @@ const ProfileCard: React.FC = () => {
 
                         {/* Preferred Channels */}
                         <label className={styles.field}>
-                            <strong>Preferred Channels:</strong>
-                            {isEditing ? (
-                                <select
-                                    multiple
-                                    value={editedProfile.preferences.preferredChannels}
-                                    onChange={handleChannelChange}
-                                    className={styles.input}
-                                >
-                                    {channelOptions.map((channel) => (
-                                        <option key={channel} value={channel}>
-                                            {channel}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : (
-                                <span>{profile.preferences.preferredChannels.join(', ')}</span>
-                            )}
-                        </label>
+    <strong>Preferred Channels:</strong>
+    {isEditing ? (
+        <MultiSelect
+            label="Preferred Channels"
+            options={channelOptions}
+            selectedOptions={editedProfile.preferences.preferredChannels}
+            onChange={(selected) =>
+                setEditedProfile((prev: any) => ({
+                    ...prev,
+                    preferences: {
+                        ...prev.preferences,
+                        preferredChannels: selected,
+                    },
+                }))
+            }
+            placeholder="Select preferred channels"
+        />
+    ) : (
+        <span>{profile.preferences.preferredChannels.join(', ')}</span>
+    )}
+</label>
                     </div>
 
                     <div className={styles.actions}>

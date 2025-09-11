@@ -12,6 +12,15 @@ const GenerateContentCard: React.FC = () => {
         channels: '',
     });
 
+    const toneMap = {
+        formal: 'Formal',
+        casual: 'Casual',
+        professional: 'Professional',
+        playful: 'Playful',
+        'gen-z': 'Gen-Z',
+        millennial: 'Millennial',
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
@@ -95,18 +104,23 @@ const GenerateContentCard: React.FC = () => {
                         />
                     </div>
                     <div className={styles.formGroup}>
-                        <label htmlFor="tone" className={styles.label}>Tone</label>
-                        <input
-                            type="text"
-                            id="tone"
-                            name="tone"
-                            placeholder="Enter Tone (e.g., casual, formal)"
-                            value={formData.tone}
-                            onChange={handleChange}
-                            className={styles.input}
-                            required
-                        />
-                    </div>
+    <label htmlFor="tone" className={styles.label}>Tone</label>
+    <select
+        id="tone"
+        name="tone"
+        value={formData.tone}
+        onChange={handleChange}
+        className={styles.input}
+        required
+    >
+        <option value="" disabled>Select a tone</option>
+        {Object.entries(toneMap).map(([key, label]) => (
+            <option key={key} value={key}>
+                {label}
+            </option>
+        ))}
+    </select>
+</div>
                 </div>
 
                 {/* Key Benefits */}

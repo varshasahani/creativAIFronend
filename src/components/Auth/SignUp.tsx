@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUser, loginUser } from '../../services/authService.ts';
 import styles from './Auth.module.css';
+import MultiSelect from '../common/MultiSelect.tsx';
 
 const SignUp: React.FC = () => {
     const [name, setName] = useState('');
@@ -197,36 +198,15 @@ const SignUp: React.FC = () => {
                         required
                     />
                 </div>
-                <div className={`${styles.formGroup} ${styles.fullWidth}`} ref={dropdownRef}>
-                    <label htmlFor="preferredChannels" className={styles.label}>preferredChannels</label>
-                    {/* Text field to display selected preferredChannels */}
-                    <input
-                        type="text"
-                        value={preferredChannels.join(', ')}
-                        readOnly
-                        className={styles.input}
-                        placeholder="Selected preferredChannels"
-                        onClick={toggleDropdown} // Open dropdown on click
-                    />
-                    {/* Dropdown with checkbox options */}
-                    {dropdownOpen && (
-                        <div className={styles.dropdown}>
-                            {availablepreferredChannels.map((channel) => (
-                                <div key={channel} className={styles.dropdownItem}>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            value={channel}
-                                            checked={preferredChannels.includes(channel)}
-                                            onChange={() => toggleChannel(channel)}
-                                        />
-                                        {channel}
-                                    </label>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
+                <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+    <MultiSelect
+        label="Preferred Channels"
+        options={availablepreferredChannels}
+        selectedOptions={preferredChannels}
+        onChange={setpreferredChannels}
+        placeholder="Select preferred channels"
+    />
+</div>
                 <div className={`${styles.formGroup} ${styles.fullWidth}`}>
                     <label htmlFor="brandDescription" className={styles.label}>Brand Description</label>
                     <textarea
