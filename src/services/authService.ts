@@ -112,17 +112,31 @@ export const updateProfile = async (accessToken: string, updatedProfile: any): P
 };
 
 // Refresh Token
-export const refreshToken = async (refreshToken: string): Promise<any> => {
+
+
+const refreshAccessToken = async () => {
     try {
-        const response = await axios.post(
-            `${BASE_URL}/auth/refresh-token`,
-            { refreshToken },
-            { headers: { 'Content-Type': 'application/json' } }
-        );
-        return response.data;
-    } catch (error: any) {
-        console.error('Error refreshing token:', error.response || error.message);
-        throw error.response?.data || error.message;
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (!refreshToken) {
+            throw new Error('Refresh token is missing. Please log in again.');
+        }
+
+        const response = await fetch(`${BASE_URL}/auth/refresh-token`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refreshToken }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to refresh access token.');
+        }
+
+        const { accessToken } = await response.json();
+        localStorage.setItem('accessToken', accessToken);
+        return accessToken;
+    } catch (err) {
+        console.error('Error refreshing token:', err);
+        throw err;
     }
 };
 

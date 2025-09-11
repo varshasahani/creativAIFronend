@@ -40,13 +40,26 @@ const ProfileCard: React.FC = () => {
             setLoading(true);
             setError(null);
             try {
-                const accessToken = localStorage.getItem('accessToken');
+                let accessToken = localStorage.getItem('accessToken');
                 if (!accessToken) {
                     throw new Error('Access token is missing. Please log in again.');
                 }
-                const data = await getProfile(accessToken);
-                setProfile(data);
-                setEditedProfile(data);
+        
+                try {
+                    const data = await getProfile(accessToken);
+                    setProfile(data);
+                    setEditedProfile(data);
+                } catch (err: any) {
+                    if (err.response?.status === 401) {
+                        // Token expired, try refreshing it
+                        accessToken = await refreshAccessToken();
+                        const data = await getProfile(accessToken);
+                        setProfile(data);
+                        setEditedProfile(data);
+                    } else {
+                        throw err;
+                    }
+                }
             } catch (err: any) {
                 setError(err.message || 'An error occurred while fetching the profile.');
             } finally {
