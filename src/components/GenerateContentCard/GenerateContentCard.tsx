@@ -3,7 +3,50 @@ import useContentRequest from '../../hooks/useContentRequest.ts';
 import styles from './GenerateContentCard.module.css';
 
 const GenerateContentCard: React.FC = () => {
-    const { loading, error, response, sendContentRequest } = useContentRequest();
+
+    let { loading, error, responses, sendContentRequest } = useContentRequest();
+    const [response, setResponse] = useState([
+        {
+            _id: "68c1bbaa7c09ec96352b27fc",
+            requestId: "68c1bb947c09ec96352b27f5",
+            model: "gpt-4o",
+            contentType: "ad_copy",
+            content: {
+                channel: "Instagram",
+                language: "en",
+                tone: "casual",
+                title: "Glow On with Kumkumadi! ✨",
+                body: "Hey beauties! 🌿 Ready to say goodbye to acne and hello to radiant skin? Our Kumkumadi Face Serum is your skincare BFF. Designed for those who want that natural glow without the fuss. Perfect for your daily routine. 💁‍♀️ Try it now and feel the difference!",
+                cta: "Shop Now",
+                meta: {
+                    hashtags: ["#SkincareGoals", "#GlowUp", "#KumkumadiSerum"],
+                    emojis: ["🌿", "✨"],
+                },
+            },
+            status: "draft",
+            createdAt: "2024-01-01T00:00:00.000Z",
+        },
+        {
+            _id: "68c1bbaa7c09ec96352b27fc",
+            requestId: "68c1bb947c09ec96352b27f5",
+            model: "gpt-4o",
+            contentType: "ad_copy",
+            content: {
+                channel: "Instagram",
+                language: "en",
+                tone: "casual",
+                title: "Glow On with Kumkumadi! ✨",
+                body: "Hey beauties! 🌿 Ready to say goodbye to acne and hello to radiant skin? Our Kumkumadi Face Serum is your skincare BFF. Designed for those who want that natural glow without the fuss. Perfect for your daily routine. 💁‍♀️ Try it now and feel the difference!",
+                cta: "Shop Now",
+                meta: {
+                    hashtags: ["#SkincareGoals", "#GlowUp", "#KumkumadiSerum"],
+                    emojis: ["🌿", "✨"],
+                },
+            },
+            status: "draft",
+            createdAt: "2024-01-01T00:00:00.000Z",
+        },
+    ]);
     const [formData, setFormData] = useState({
         productName: '',
         tone: '',
@@ -179,14 +222,20 @@ const GenerateContentCard: React.FC = () => {
                 </button>
             </form>
 
-            <div className={styles.result}>
+            <div className={styles.generatedAds}>
                 {error && <p className={styles.error}>Error: {error}</p>}
-                {response && (
-                    <div className={styles.response}>
-                        <h3>Generated Content:</h3>
-                        <p>{response.generatedContent}</p>
+                {response && response.map((ad: any, index: number) => (
+                    <div key={index} className={styles.adCard}>
+                        <div className={styles.channelTag}>{ad.content.channel}</div>
+                        <h3 className={styles.adTitle}>{ad.content.title}</h3>
+                        <p className={styles.adBody}>{ad.content.body}</p>
+                        <p className={styles.adCTA}><strong>{ad.content.cta}</strong></p>
+                        <div className={styles.adMeta}>
+                            <p>{ad.content.meta.hashtags.join(' ')}</p>
+                            <p>{ad.content.meta.emojis.join(' ')}</p>
+                        </div>
                     </div>
-                )}
+                ))}
             </div>
         </div>
     );
