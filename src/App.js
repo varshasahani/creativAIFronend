@@ -41,6 +41,7 @@ const App = () => {
     };
 
     const handleLogout = () => {
+        localStorage.clear();
         setIsAuthenticated(false); // Simulate logout
         setActiveComponent('generateContent'); // Reset active component
     };

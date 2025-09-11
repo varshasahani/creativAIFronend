@@ -5,6 +5,8 @@
     --color-secondary: #4a4a4a; /* Dark Gray for secondary elements */
     --color-background: #ffffff; /* White for the background */
     --color-surface: #f5f5f5; /* Light Gray for surfaces like cards */
+    --color-error:rgb(33, 21, 21);
+    --color-success: #0a662a;
     --color-text-primary: #353434; /* Black for primary content */
     --color-text-secondary: #6d6d6d; /* Medium Gray for secondary text */
     --contrast-text-primary: #ffffff;

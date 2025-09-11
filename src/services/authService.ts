@@ -95,6 +95,22 @@ export const getProfile = async (accessToken: string): Promise<any> => {
     }
 };
 
+export const updateProfile = async (accessToken: string, updatedProfile: any): Promise<any> => {
+    try {
+        const userId = localStorage.getItem('userId');
+        const response = await axios.put(`${BASE_URL}/users/${userId}`, updatedProfile, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data;
+    } catch (error: any) {
+        console.error('Error updating profile:', error.response || error.message);
+        throw error.response?.data || error.message;
+    }
+};
+
 // Refresh Token
 export const refreshToken = async (refreshToken: string): Promise<any> => {
     try {
