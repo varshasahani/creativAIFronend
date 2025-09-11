@@ -283,7 +283,6 @@ const ProfileCard: React.FC = () => {
     <strong>Preferred Channels:</strong>
     {isEditing ? (
         <MultiSelect
-            label="Preferred Channels"
             options={channelOptions}
             selectedOptions={editedProfile.preferences.preferredChannels}
             onChange={(selected) =>
