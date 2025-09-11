@@ -3,9 +3,13 @@ import axios from 'axios';
 const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://content-creation-engine-production.up.railway.app/api/v1';
 
 // Service for generating content
-export const createContentRequest = async (payload: any, accessToken: string): Promise<any> => {
+export const createContentRequest = async (payload: any): Promise<any> => {
     try {
-        const response = await axios.post(`${BASE_URL}/content-requests/structured`, payload, {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            throw new Error('Access token is missing. Please log in again.');
+        }
+        const response = await axios.post(`${BASE_URL}/content-requests/generate-channel-content`, payload, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`,

@@ -4,7 +4,6 @@
     box-shadow: var(--shadow-light);
     padding: var(--spacing-large);
     margin: var(--spacing-large) auto;
-    max-width: 600px;
 }
 
 .title {
@@ -92,6 +91,9 @@
 }
 
 .generatedAds {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping to the next row if there are more than two cards */
+    gap: 20px; 
     margin-top: 20px;
 }
 
@@ -99,6 +101,8 @@
     position: relative;
     border: 1px solid #ddd;
     border-radius: 8px;
+    width: 45%;
+    min-width: 345px;
     padding: 16px;
     margin-bottom: 16px;
     background-color: #f9f9f9;

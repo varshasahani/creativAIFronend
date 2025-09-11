@@ -55,6 +55,8 @@ const GenerateContentCard: React.FC = () => {
         channels: '',
     });
 
+    const [isSubmitting, setIsSubmitting] = useState(false); // State for form submission loader
+
     const toneMap = {
         formal: 'Formal',
         casual: 'Casual',
@@ -113,8 +115,13 @@ const GenerateContentCard: React.FC = () => {
             alert('You must select between 1 and 6 channels.');
             return;
         }
-
+        const userId=localStorage.getItem('userId');
+        if(!userId){
+            alert('User ID is missing. Please log in again.');
+            return;
+        }
         const payload = {
+            userId: userId,
             productName: formData.productName,
             tone: formData.tone,
             keyBenefits: keyBenefitsArray,
@@ -122,8 +129,14 @@ const GenerateContentCard: React.FC = () => {
             channels: channelsArray,
         };
 
-        const accessToken = 'your-access-token'; // Replace with actual token
-        await sendContentRequest(payload, accessToken);
+        try {
+            setIsSubmitting(true); // Show loader during submission
+            await sendContentRequest(payload);
+        } catch (err) {
+            console.error('Error generating content:', err);
+        } finally {
+            setIsSubmitting(false); // Hide loader after submission
+        }
     };
 
     return (

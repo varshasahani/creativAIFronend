@@ -27,8 +27,7 @@
 }
 
 form {
-  width: 88%; /* Ensure the form takes up the container width */
-  max-width: 600px; /* Increase the max width for a larger form */
+  width: 93%; /* Ensure the form takes up the container width */
   padding: var(--spacing-large);
   background-color: var(--color-surface);
   border-radius: var(--border-radius);

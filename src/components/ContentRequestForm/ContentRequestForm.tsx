@@ -27,7 +27,7 @@ const ContentRequestForm: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const accessToken = 'your-access-token'; // Replace with actual token
-        await sendContentRequest(formData, accessToken);
+        await sendContentRequest(formData);
     };
 
     return (

@@ -17,11 +17,11 @@ const useContentRequest = () => {
     const [pastContent, setPastContent] = useState<any[]>([]);
 
     // Logic for generating content
-    const sendContentRequest = async (payload: ContentRequestPayload, accessToken: string) => {
+    const sendContentRequest = async (payload: ContentRequestPayload) => {
         setLoading(true);
         setError(null);
         try {
-            const data = await createContentRequest(payload, accessToken);
+            const data = await createContentRequest(payload);
             setResponse(data);
         } catch (err: any) {
             setError(err.message || 'An error occurred while generating content.');
