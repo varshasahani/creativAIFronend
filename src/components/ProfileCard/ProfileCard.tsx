@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './ProfileCard.module.css';
 import { getProfile, updateProfile } from '../../services/authService.ts';
 import MultiSelect from '../common/MultiSelect.tsx';
+import { ALLOWED_CHANNELS } from '../../constants.ts';
 
 const languageMap = {
     en: 'English',
@@ -26,7 +27,7 @@ const productTypeMap = {
     supplements: 'Supplements',
 };
 
-const channelOptions = ['Instagram', 'Facebook', 'Twitter', 'LinkedIn', 'YouTube'];
+const channelOptions = ALLOWED_CHANNELS
 
 const ProfileCard: React.FC = () => {
     const [profile, setProfile] = useState<any>(null);

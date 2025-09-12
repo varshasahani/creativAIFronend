@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useContentRequest from '../../hooks/useContentRequest.ts';
 import styles from './GenerateContentCard.module.css';
 import MultiSelect from '../common/MultiSelect.tsx';
-
+import { ALLOWED_CHANNELS } from '../../constants.ts';
 const GenerateContentCard: React.FC = () => {
      const [preferredChannels, setpreferredChannels] = useState<string[]>([]);
     let { loading, error, response, sendContentRequest } = useContentRequest();
@@ -26,17 +26,7 @@ const GenerateContentCard: React.FC = () => {
         millennial: 'Millennial',
     };
 
-    const availablepreferredChannels = [
-        'Instagram',
-        'Facebook',
-        'Google Ads',
-        'Meta Ads',
-        'LinkedIn',
-        'WhatsApp',
-        'TikTok',
-        'Email',
-        'SMS',
-    ];
+    const availablepreferredChannels = ALLOWED_CHANNELS
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

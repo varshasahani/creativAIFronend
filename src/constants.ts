@@ -1,0 +1,1 @@
+export const ALLOWED_CHANNELS = ['Facebook', 'Instagram', 'Twitter', 'LinkedIn', 'Email', 'Website'];

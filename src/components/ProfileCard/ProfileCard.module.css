@@ -10,7 +10,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-large);
-    overflow: hidden;
     animation: fadeIn 0.5s ease-in-out; /* Add a fade-in animation */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -126,12 +125,12 @@
 }
 
 .saveButton {
-    background-color: var(--color-success);
+    background-color: #007bff;;
     color: var(--contrast-text-primary);
 }
 
 .saveButton:hover {
-    background-color: #0c8c3a; /* Darker green for hover */
+    background-color: white;; /* Darker green for hover */
     transform: translateY(-2px);
 }
 
@@ -141,7 +140,7 @@
 }
 
 .cancelButton:hover {
-    background-color: #a83232; /* Darker red for hover */
+    background-color: white; /* Darker red for hover */
     transform: translateY(-2px);
 }
 

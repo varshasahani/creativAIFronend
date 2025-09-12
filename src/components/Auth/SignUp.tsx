@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { registerUser, loginUser } from '../../services/authService.ts';
 import styles from './Auth.module.css';
 import MultiSelect from '../common/MultiSelect.tsx';
+import { ALLOWED_CHANNELS } from '../../constants.ts';
 
 const SignUp: React.FC =  ({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) => void }) => {
     const [name, setName] = useState('');
@@ -24,17 +25,7 @@ const SignUp: React.FC =  ({ setIsAuthenticated }: { setIsAuthenticated: (value:
     const dropdownRef = useRef<HTMLDivElement>(null); // Ref for the dropdown container
 
     // List of available preferredChannels
-    const availablepreferredChannels = [
-        'Instagram',
-        'Facebook',
-        'Google Ads',
-        'Meta Ads',
-        'LinkedIn',
-        'WhatsApp',
-        'TikTok',
-        'Email',
-        'SMS',
-    ];
+    const availablepreferredChannels = ALLOWED_CHANNELS
 
     const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
