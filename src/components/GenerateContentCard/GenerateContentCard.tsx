@@ -47,6 +47,19 @@ const GenerateContentCard: React.FC = () => {
         }));
     };
 
+    const handleChannelChange = (selectedOptions: any) => {
+        // Ensure selectedOptions is an array
+        const selectedValues = Array.isArray(selectedOptions)
+            ? selectedOptions
+            : [selectedOptions];
+    
+        setpreferredChannels(selectedValues); // Update preferredChannels state
+        setFormData((prev) => ({
+            ...prev,
+            channels: selectedValues.join(', '), // Update formData.channels as a comma-separated string
+        }));
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -78,15 +91,13 @@ const GenerateContentCard: React.FC = () => {
             return;
         }
 
-        // Validate channels
-        const channelsArray = formData.channels
-            .split(',')
-            .map((channel) => channel.trim())
-            .filter((channel) => channel !== '');
-        if (channelsArray.length < 1 || channelsArray.length > 6) {
-            alert('You must select between 1 and 6 channels.');
-            return;
-        }
+       // Validate channels
+       const channelsArray = preferredChannels; // Use preferredChannels directly
+       console.log('Channels Array:', channelsArray);
+       if (channelsArray.length < 1) {
+           alert('You must select at least 1 channel.');
+           return;
+       }
         const userId=localStorage.getItem('userId');
         if(!userId){
             alert('User ID is missing. Please log in again.');
