@@ -15,6 +15,11 @@ const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('accessToken')); // Authentication state
     const [activeComponent, setActiveComponent] = useState('generateContent'); // Active component state
     const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State for sidebar toggle
+   
+    const toggleSidebar = () => {
+        setIsSidebarOpen((prev) => !prev); // Toggle the sidebar state
+    };
 
     useEffect(() => {
         // Check if tokens exist in localStorage
@@ -102,6 +107,7 @@ const App = () => {
                                 element={
                                     <>
                                         <Sidebar
+                                        isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} 
                                             setActiveComponent={setActiveComponent}
                                             handleLogout={handleLogout} // Pass handleLogout to Sidebar
                                         />
@@ -111,7 +117,7 @@ const App = () => {
                                     </>
                                 }
                             />
-                            <Route path="/generateContent" element={<GenerateContentCard />} />
+                            <Route path="/generateContent" element={<GenerateContentCard className={`content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}/>} />
                             <Route path="*" element={<Navigate to="/" />} />
                         </>
                     )}

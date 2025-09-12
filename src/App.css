@@ -1,16 +1,10 @@
 .app-container {
   display: flex; /* Flexbox ensures Sidebar and content are side by side */
   height: 100vh; /* Full viewport height */
-  width: 100vw; /* Full viewport width */
   overflow: hidden; /* Prevent scrolling */
 }
 
-.content {
-  flex: 1; /* Take up the remaining space next to the sidebar */
-  padding: var(--spacing-large);
-  overflow-y: auto; /* Allow scrolling if content overflows */
-  background-color: var(--color-background); /* Match the theme */
-}
+
 
 .auth-container {
   display: flex;
@@ -57,4 +51,35 @@ form h2 {
 .auth-toggle:hover {
   background-color: var(--color-hover);
   transform: translateY(-2px);
+}
+
+.content {
+  flex-grow: 1; /* Take up the remaining space next to the sidebar */
+  padding: 20px;
+  overflow-y: auto; /* Allow scrolling if content overflows */
+  background-color: var(--color-background); /* Match the theme */
+  transition: margin-left 0.3s ease; /* Smooth transition for margin */
+}
+
+.content.sidebar-open {
+  margin-left: 250px; /* Adjust content margin when sidebar is open */
+}
+
+.content.sidebar-closed {
+  margin-left: 70px; /* Adjust content margin when sidebar is collapsed */
+}
+
+
+/* Sidebar styles */
+.sidebar {
+  flex-shrink: 0; /* Prevent the sidebar from shrinking */
+  transition: width 0.3s ease; /* Smooth transition for width */
+}
+
+.sidebar-open {
+  width: 250px; /* Sidebar width when open */
+}
+
+.sidebar-closed {
+  width: 70px; /* Sidebar width when collapsed */
 }

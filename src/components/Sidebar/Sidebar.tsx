@@ -5,14 +5,21 @@ import useSidebar from './useSidebar.ts';
 interface SidebarProps {
     setActiveComponent: (component: string) => void;
     handleLogout: () => void;
+    isOpen: boolean; // Prop to control sidebar open/close state
+    toggleSidebar: () => void; // Function to toggle the sidebar
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ setActiveComponent, handleLogout }) => {
+const Sidebar: React.FC<SidebarProps> = ({ setActiveComponent, handleLogout, isOpen, toggleSidebar }) => {
     const { menuItems, handleMenuClick } = useSidebar(setActiveComponent);
 
     return (
-        <div className={styles.sidebar}>
-            <div className={styles.appName}>CreativAI</div>
+        <div className={`${styles.sidebar} ${isOpen ? styles.open : styles.closed}`}>
+            <div className={styles.toggleButtonContainer}>
+                <button className={styles.toggleButton} onClick={toggleSidebar}>
+                    {isOpen ? '←' : '→'}
+                </button>
+            </div>
+            {isOpen && <div className={styles.appName}>CreativAI</div>}
             <nav className={styles.menu}>
                 {menuItems.map((item) => (
                     <div
@@ -21,13 +28,15 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveComponent, handleLogout }) =
                         onClick={() => handleMenuClick(item.id)}
                         title={item.disabled ? item.tooltip : ''}
                     >
-                        {item.label}
+                        <i className={`fas fa-${item.icon}`}></i> {/* Icon */}
+                        <span>{item.label}</span> {/* Text */}
                     </div>
                 ))}
             </nav>
             <div className={styles.logout}>
                 <button onClick={handleLogout} className={styles.logoutButton}>
-                    Logout
+                    <i className="fas fa-sign-out-alt"></i> {/* Logout Icon */}
+                    {isOpen && <span>Logout</span>}
                 </button>
             </div>
         </div>
