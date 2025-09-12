@@ -196,7 +196,7 @@ const GenerateContentCard: React.FC = () => {
 
             <div className={styles.generatedAds}>
                 {error && <p className={styles.error}>Error: {error}</p>}
-                {response && response.map((ad: any, index: number) => (
+                {response && response.channelContents((ad: any, index: number) => (
                     <div key={index} className={styles.adCard}>
                         <div className={styles.channelTag}>{ad.content.channel}</div>
                         <h3 className={styles.adTitle}>{ad.content.title}</h3>
