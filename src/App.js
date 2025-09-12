@@ -12,7 +12,7 @@ import './App.css';
 import { loginUser } from './services/authService.ts';
 
 const App = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false); // Authentication state
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('accessToken')); // Authentication state
     const [activeComponent, setActiveComponent] = useState('generateContent'); // Active component state
     const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
 
@@ -77,7 +77,7 @@ const App = () => {
                                         {authMode === 'login' ? (
                                             <Login handleLogin={handleLogin} />
                                         ) : (
-                                            <SignUp />
+                                            <SignUp setIsAuthenticated={setIsAuthenticated}/>
                                         )}
                                         <button
                                             className="auth-toggle"

@@ -4,7 +4,7 @@ import { registerUser, loginUser } from '../../services/authService.ts';
 import styles from './Auth.module.css';
 import MultiSelect from '../common/MultiSelect.tsx';
 
-const SignUp: React.FC = () => {
+const SignUp: React.FC =  ({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) => void }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -69,25 +69,13 @@ const SignUp: React.FC = () => {
             localStorage.setItem('accessToken', response.accessToken);
             localStorage.setItem('refreshToken', response.refreshToken);
             localStorage.setItem('userId', response.user?._id);
-
+            setIsAuthenticated(true);
             navigate('/');
         } catch (err: any) {
             setError(err.message || 'An error occurred during registration.');
         } finally {
             setLoading(false);
         }
-    };
-
-    const toggleChannel = (channel: string) => {
-        if (preferredChannels.includes(channel)) {
-            setpreferredChannels(preferredChannels.filter((c) => c !== channel));
-        } else {
-            setpreferredChannels([...preferredChannels, channel]);
-        }
-    };
-
-    const toggleDropdown = () => {
-        setDropdownOpen(!dropdownOpen);
     };
 
     // Close dropdown when clicking outside
