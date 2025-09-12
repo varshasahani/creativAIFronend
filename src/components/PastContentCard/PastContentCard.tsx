@@ -1,186 +1,140 @@
-import styles from './PastContentCard.module.css';
 import React, { useEffect, useState } from 'react';
 import { getUserContentRequests } from '../../services/contentRequestService.ts';
-interface PastContentCardProps {
-    userId: string;
-    accessToken: string;
-}
+import styles from './PastContentCard.module.css';
 
-const PastContentCard: React.FC<PastContentCardProps> = ({ }) => {
+const ITEMS_PER_PAGE = 12; // Number of items per page
+
+const PastContentCard: React.FC = () => {
     const [expandedContent, setExpandedContent] = useState<string | null>(null);
-    const [pastContents, setPastContent] = useState<any[]>([]);
+    const [pastContent, setPastContent] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const pastContent=[
-        {
-            "_id": "68c1bba17c09ec96352b27f8",
-            "requestId": "68c1bb947c09ec96352b27f5",
-            "model": "gpt-4o",
-            "contentType": "ad_copy",
-            "content": {
-                "channel": "Instagram",
-                "language": "en",
-                "tone": "casual",
-                "title": "Glow Up with Kumkumadi! 🌟",
-                "body": "Hey beauties! 🌿 Ready for radiant, acne-free skin? Our Kumkumadi Face Serum is your new BFF for that natural glow and clear complexion. Perfect for your daily skincare routine! ✨",
-                "cta": "Try it now!",
-                "meta": {
-                    "hashtags": [
-                        "#GlowingSkin",
-                        "#AcneFree",
-                        "#KumkumadiMagic"
-                    ],
-                    "emojis": [
-                        "🌿",
-                        "✨"
-                    ]
-                }
-            },
-            "status": "draft",
-            "createdAt": "2024-01-01T00:00:00.000Z"
-        },
-        {
-            "_id": "68c1bbaa7c09ec96352b27fc",
-            "requestId": "68c1bb947c09ec96352b27f5",
-            "model": "gpt-4o",
-            "contentType": "ad_copy",
-            "content": {
-                "channel": "Instagram",
-                "language": "en",
-                "tone": "casual",
-                "title": "Glow On with Kumkumadi! ✨",
-                "body": "Hey beauties! 🌿 Ready to say goodbye to acne and hello to radiant skin? Our Kumkumadi Face Serum is your skincare BFF. Designed for those who want that natural glow without the fuss. Perfect for your daily routine. 💁‍♀️ Try it now and feel the difference!",
-                "cta": "Shop Now",
-                "meta": {
-                    "hashtags": [
-                        "#SkincareGoals",
-                        "#GlowUp",
-                        "#KumkumadiSerum"
-                    ],
-                    "emojis": [
-                        "🌿",
-                        "✨"
-                    ]
-                }
-            },
-            "status": "draft",
-            "createdAt": "2024-01-01T00:00:00.000Z"
-        },
-        {
-            "_id": "68c1bbaf7c09ec96352b2801",
-            "requestId": "68c1bb947c09ec96352b27f5",
-            "model": "gpt-4o",
-            "contentType": "ad_copy",
-            "content": {
-                "channel": "Facebook",
-                "language": "en",
-                "tone": "casual",
-                "title": "Unlock Your Natural Glow!",
-                "body": "Hey beauties! Ready to let your skin shine? Our Kumkumadi Face Serum is your go-to for that radiant glow and acne-free skin. Packed with natural goodness, it's time to embrace flawless beauty. 🌟 Join our community of glowing goddesses and share your glow-up stories with us! ✨",
-                "cta": "Get Yours Now!",
-                "meta": {
-                    "hashtags": [
-                        "#GlowUp",
-                        "#AcneFree",
-                        "#BeautyRoutine"
-                    ],
-                    "emojis": [
-                        "🌿",
-                        "✨"
-                    ]
-                }
-            },
-            "status": "draft",
-            "createdAt": "2024-01-01T00:00:00.000Z"
-        },
-        {
-            "_id": "68c1bbb77c09ec96352b2805",
-            "requestId": "68c1bb947c09ec96352b27f5",
-            "model": "gpt-4o",
-            "contentType": "ad_copy",
-            "content": {
-                "channel": "Facebook",
-                "language": "en",
-                "tone": "casual",
-                "title": "Say Hello to Radiant, Acne-Free Skin!",
-                "body": "Hey beauties! 🌿 Imagine waking up every day with that natural glow and saying goodbye to stubborn acne. Meet your new BFF, Kumkumadi Face Serum! This magic potion is crafted just for you, promising luminous skin and acne control. Ready to shine? ✨ Let's chat about your skincare goals in the comments below!",
-                "cta": "Try it now!",
-                "meta": {
-                    "hashtags": [
-                        "#GlowingSkin",
-                        "#AcneControl",
-                        "#BeautyRoutine"
-                    ],
-                    "emojis": [
-                        "🌿",
-                        "✨"
-                    ]
-                }
-            },
-            "status": "draft",
-            "createdAt": "2024-01-01T00:00:00.000Z"
-        }
-    ];
+    const [currentPage, setCurrentPage] = useState<number>(1); // Current page
+    const [totalPages, setTotalPages] = useState<number>(1); // Total pages
 
     useEffect(() => {
-        const fetchPastContent = async () => {
+        const fetchData = async () => {
             try {
-                setLoading(true);
-                const response = await getUserContentRequests();
-                setPastContent(response.data); // Assuming the API returns `data` as the array of content
+                setLoading(true); // Set loading to true before the request
+                const data = await getUserContentRequests(currentPage, ITEMS_PER_PAGE); // Fetch data for the current page
+                console.log('Fetched Content:', data); // Debugging: Log the entire response
+                setPastContent(data.requests);
+                setTotalPages(data.totalPages); // Set total pages from the API response
             } catch (err: any) {
-                setError(err.message || 'Failed to fetch past content.');
+                console.error('Error fetching content:', err); // Log the error
+                setError(err.message || 'Failed to fetch content.');
             } finally {
-                setLoading(false);
+                setLoading(false); // Set loading to false after the request
             }
         };
 
-        fetchPastContent();
-    },[]);
+        fetchData();
+    }, [currentPage]); // Refetch data when the page changes
 
     const toggleContent = (id: string) => {
         setExpandedContent((prev) => (prev === id ? null : id));
     };
 
+    const handlePageChange = (newPage: number) => {
+        if (newPage > 0 && newPage <= totalPages) {
+            setCurrentPage(newPage); // Update the current page
+        }
+    };
+
     return (
         <div className={styles.card}>
-            <h2 className={styles.title}>Past Content Requests</h2>
+            <h2 className={styles?.title}>Past Content Requests</h2>
+
+            {/* Show loading indicator */}
+            {loading && <p className={styles.loading}>Loading...</p>}
+
+            {/* Show error message */}
+            {error && <p className={styles.error}>{error}</p>}
 
             {/* Check if pastContent is empty or undefined */}
-            {(!pastContent || pastContent.length === 0) ? (
+            {!loading && !error && (!pastContent || pastContent.length === 0) ? (
                 <p className={styles.noContent}>No past content requests found.</p>
             ) : (
                 <div className={styles.generatedAds}>
-                    {pastContent.map((content) => (
-                        <div key={content._id} className={styles.adCard}>
-                            {/* Title */}
-                            <div className={styles.adHeader} onClick={() => toggleContent(content._id)}>
-                                <h3 className={styles.adTitle}>{content.content.title}</h3>
-                                <button className={styles.toggleButton}>
-                                    {expandedContent === content._id ? 'Hide' : 'Show'}
-                                </button>
-                            </div>
+                    {pastContent.map((content) => {
+                        // Parse the generatedContent JSON string
+                        let parsedContent;
+                        try {
+                            parsedContent = JSON.parse(content.generatedContent);
+                        } catch (err) {
+                            console.error('Error parsing generatedContent:', err);
+                            parsedContent = {
+                                content: {
+                                    title: 'Error parsing content',
+                                    body: '',
+                                    cta: '',
+                                    meta: { hashtags: [], emojis: [] },
+                                    channel: '',
+                                },
+                            };
+                        }
 
-                            {/* Expanded Content */}
-                            {expandedContent === content._id && (
-                                <div className={styles.expandedContent}>
-                                    <p className={styles.adBody}>{content.content.body}</p>
-                                    <p className={styles.adCTA}><strong>{content.content.cta}</strong></p>
-                                    <div className={styles.adMeta}>
-                                        <p>{content.content.meta.hashtags.join(' ')}</p>
-                                        <p>{content.content.meta.emojis.join(' ')}</p>
-                                    </div>
-                                    <p className={styles.adChannel}>
-                                        <strong>Channel:</strong> {content.content.channel}
-                                    </p>
-                                    <p className={styles.adCreatedAt}>
-                                        <strong>Created At:</strong>{' '}
-                                        {new Date(content.createdAt).toLocaleString()}
-                                    </p>
+                        const title = parsedContent.content.title || 'No Title Available';
+                        const body = parsedContent.content.body || 'No Body Available';
+                        const cta = parsedContent.content.cta || 'No CTA Available';
+                        const hashtags = parsedContent.content.meta?.hashtags?.join(' ') || '';
+                        const emojis = parsedContent.content.meta?.emojis?.join(' ') || '';
+                        const channel = parsedContent.content.channel || 'No Channel Available';
+
+                        return (
+                            <div key={content._id} className={styles.adCard}>
+                                {/* Title */}
+                                <div className={styles.adHeader} onClick={() => toggleContent(content._id)}>
+                                    <h3 className={styles.adTitle}>{title}</h3>
+                                    <button className={styles.toggleButton}>
+                                        {expandedContent === content._id ? 'Hide' : 'Show'}
+                                    </button>
                                 </div>
-                            )}
-                        </div>
-                    ))}
+
+                                {/* Expanded Content */}
+                                {expandedContent === content._id && (
+                                    <div className={styles.expandedContent}>
+                                        <p className={styles.adBody}>{body}</p>
+                                        <p className={styles.adCTA}><strong>{cta}</strong></p>
+                                        <div className={styles.adMeta}>
+                                            <p>{hashtags}</p>
+                                            <p>{emojis}</p>
+                                        </div>
+                                        <p className={styles.adChannel}>
+                                            <strong>Channel:</strong> {channel}
+                                        </p>
+                                        <p className={styles.adCreatedAt}>
+                                            <strong>Created At:</strong>{' '}
+                                            {new Date(content.createdAt).toLocaleString()}
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
+
+            {/* Pagination Controls */}
+            {!loading && !error && totalPages > 1 && (
+                <div className={styles.pagination}>
+                    <button
+                        className={styles.pageButton}
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                    >
+                        Previous
+                    </button>
+                    <span className={styles.pageInfo}>
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        className={styles.pageButton}
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                    >
+                        Next
+                    </button>
                 </div>
             )}
         </div>

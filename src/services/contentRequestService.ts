@@ -31,6 +31,7 @@ export const getUserContentRequests = async (
     try {
         const accessToken = localStorage.getItem('accessToken');
         const userId = localStorage.getItem('userId');
+        console.log('here')
         if (!accessToken || !userId) {
             throw new Error('Access token or User ID is missing. Please log in again.');
         }
