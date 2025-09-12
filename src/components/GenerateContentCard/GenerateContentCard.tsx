@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import useContentRequest from '../../hooks/useContentRequest.ts';
 import styles from './GenerateContentCard.module.css';
+import MultiSelect from '../common/MultiSelect.tsx';
 
 const GenerateContentCard: React.FC = () => {
-
+     const [preferredChannels, setpreferredChannels] = useState<string[]>([]);
     let { loading, error, response, sendContentRequest } = useContentRequest();
   
     const [formData, setFormData] = useState({
@@ -24,6 +25,18 @@ const GenerateContentCard: React.FC = () => {
         'gen-z': 'Gen-Z',
         millennial: 'Millennial',
     };
+
+    const availablepreferredChannels = [
+        'Instagram',
+        'Facebook',
+        'Google Ads',
+        'Meta Ads',
+        'LinkedIn',
+        'WhatsApp',
+        'TikTok',
+        'Email',
+        'SMS',
+    ];
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -172,21 +185,18 @@ const GenerateContentCard: React.FC = () => {
                 </div>
 
                 {/* Channels */}
-                <div className={styles.formGroup}>
-                    <label htmlFor="channels" className={styles.label}>
-                        Channels <span className={styles.helperText}>(Enter values separated by commas)</span>
-                    </label>
-                    <input
-                        type="text"
-                        id="channels"
-                        name="channels"
-                        placeholder="e.g., Instagram, Facebook, Google Ads"
-                        value={formData.channels}
-                        onChange={handleChange}
-                        className={styles.input}
-                        required
-                    />
-                </div>
+                <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+                <label htmlFor="preferredChannels" className={styles.label}>
+        Preferred Channels
+        <span className={styles.helperText}>(select only 1 for better performance)</span>
+    </label>
+    <MultiSelect
+        options={availablepreferredChannels}
+        selectedOptions={preferredChannels}
+        onChange={setpreferredChannels}
+        placeholder="Select preferred channels"
+    />
+</div>
 
                 {/* Submit Button */}
                 <button type="submit" className={styles.submitButton} disabled={loading}>

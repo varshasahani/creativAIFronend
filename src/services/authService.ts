@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from './axiosInstance.ts';
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://content-creation-engine-production.up.railway.app/api/v1';
 
@@ -8,20 +8,7 @@ const getHeaders = (accessToken: string) => ({
     Authorization: `Bearer ${accessToken}`,
 });
 
-// Authentication APIs
-
-// Register User
-// export const registerUser = async (payload: any): Promise<any> => {
-//     try {
-//         const response = await axios.post(`${BASE_URL}/auth/register`, payload, {
-//             headers: { 'Content-Type': 'application/json' },
-//         });
-//         return response.data;
-//     } catch (error: any) {
-//         console.error('Error registering user:', error.response || error.message);
-//         throw error.response?.data || error.message;
-//     }
-// };
+// Registration
 export const registerUser = async (payload: {
     name: string;
     email: string;
@@ -57,7 +44,7 @@ export const registerUser = async (payload: {
 export const loginUser = async (payload: { email: string; password: string }): Promise<any> => {
     try {
         // Make the POST request to the login endpoint
-        const response = await axios.post(`${BASE_URL}/auth/login`, payload, {
+        const response = await axiosInstance.post(`${BASE_URL}/auth/login`, payload, {
             headers: { 'Content-Type': 'application/json' },
         });
         // Ensure the response contains the necessary fields
@@ -85,7 +72,7 @@ export const loginUser = async (payload: { email: string; password: string }): P
 export const getProfile = async (accessToken: string): Promise<any> => {
     try {
         const userId = localStorage.getItem('userId');
-        const response = await axios.get(`${BASE_URL}/users/${userId}`, {
+        const response = await axiosInstance.get(`${BASE_URL}/users/${userId}`, {
             headers: getHeaders(accessToken),
         });
         return response.data;
@@ -98,7 +85,7 @@ export const getProfile = async (accessToken: string): Promise<any> => {
 export const updateProfile = async (accessToken: string, updatedProfile: any): Promise<any> => {
     try {
         const userId = localStorage.getItem('userId');
-        const response = await axios.put(`${BASE_URL}/users/${userId}`, updatedProfile, {
+        const response = await axiosInstance.put(`${BASE_URL}/users/${userId}`, updatedProfile, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
@@ -143,7 +130,7 @@ const refreshAccessToken = async () => {
 // Change Password
 export const changePassword = async (accessToken: string, payload: any): Promise<any> => {
     try {
-        const response = await axios.post(`${BASE_URL}/auth/change-password`, payload, {
+        const response = await axiosInstance.post(`${BASE_URL}/auth/change-password`, payload, {
             headers: getHeaders(accessToken),
         });
         return response.data;
@@ -156,7 +143,7 @@ export const changePassword = async (accessToken: string, payload: any): Promise
 // Forgot Password
 export const forgotPassword = async (payload: any): Promise<any> => {
     try {
-        const response = await axios.post(`${BASE_URL}/auth/forgot-password`, payload, {
+        const response = await axiosInstance.post(`${BASE_URL}/auth/forgot-password`, payload, {
             headers: { 'Content-Type': 'application/json' },
         });
         return response.data;
@@ -169,7 +156,7 @@ export const forgotPassword = async (payload: any): Promise<any> => {
 // Reset Password
 export const resetPassword = async (payload: any): Promise<any> => {
     try {
-        const response = await axios.post(`${BASE_URL}/auth/reset-password`, payload, {
+        const response = await axiosInstance.post(`${BASE_URL}/auth/reset-password`, payload, {
             headers: { 'Content-Type': 'application/json' },
         });
         return response.data;
@@ -182,7 +169,7 @@ export const resetPassword = async (payload: any): Promise<any> => {
 // Logout
 export const logout = async (accessToken: string): Promise<any> => {
     try {
-        const response = await axios.post(`${BASE_URL}/auth/logout`, {}, {
+        const response = await axiosInstance.post(`${BASE_URL}/auth/logout`, {}, {
             headers: getHeaders(accessToken),
         });
         return response.data;
@@ -197,7 +184,7 @@ export const logout = async (accessToken: string): Promise<any> => {
 // Create User (Public)
 export const createUser = async (payload: any): Promise<any> => {
     try {
-        const response = await axios.post(`${BASE_URL}/users`, payload, {
+        const response = await axiosInstance.post(`${BASE_URL}/users`, payload, {
             headers: { 'Content-Type': 'application/json' },
         });
         return response.data;
@@ -210,7 +197,7 @@ export const createUser = async (payload: any): Promise<any> => {
 // Get All Users (Admin Only)
 export const getAllUsers = async (accessToken: string, page: number, limit: number): Promise<any> => {
     try {
-        const response = await axios.get(`${BASE_URL}/users`, {
+        const response = await axiosInstance.get(`${BASE_URL}/users`, {
             headers: getHeaders(accessToken),
             params: { page, limit },
         });
@@ -224,7 +211,7 @@ export const getAllUsers = async (accessToken: string, page: number, limit: numb
 // Get User by ID
 export const getUserById = async (accessToken: string, userId: string): Promise<any> => {
     try {
-        const response = await axios.get(`${BASE_URL}/users/${userId}`, {
+        const response = await axiosInstance.get(`${BASE_URL}/users/${userId}`, {
             headers: getHeaders(accessToken),
         });
         return response.data;
@@ -237,7 +224,7 @@ export const getUserById = async (accessToken: string, userId: string): Promise<
 // Update User
 export const updateUser = async (accessToken: string, userId: string, payload: any): Promise<any> => {
     try {
-        const response = await axios.put(`${BASE_URL}/users/${userId}`, payload, {
+        const response = await axiosInstance.put(`${BASE_URL}/users/${userId}`, payload, {
             headers: getHeaders(accessToken),
         });
         return response.data;

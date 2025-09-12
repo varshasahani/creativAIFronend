@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
 import styles from './PastContentCard.module.css';
-
+import React, { useEffect, useState } from 'react';
+import { getUserContentRequests } from '../../services/contentRequestService.ts';
 interface PastContentCardProps {
-    pastContent: any[]; // Replace `any[]` with the appropriate type if available
+    userId: string;
+    accessToken: string;
 }
 
 const PastContentCard: React.FC<PastContentCardProps> = ({ }) => {
     const [expandedContent, setExpandedContent] = useState<string | null>(null);
+    const [pastContents, setPastContent] = useState<any[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
     const pastContent=[
         {
             "_id": "68c1bba17c09ec96352b27f8",
@@ -117,6 +121,23 @@ const PastContentCard: React.FC<PastContentCardProps> = ({ }) => {
             "createdAt": "2024-01-01T00:00:00.000Z"
         }
     ];
+
+    useEffect(() => {
+        const fetchPastContent = async () => {
+            try {
+                setLoading(true);
+                const response = await getUserContentRequests();
+                setPastContent(response.data); // Assuming the API returns `data` as the array of content
+            } catch (err: any) {
+                setError(err.message || 'Failed to fetch past content.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPastContent();
+    },[]);
+
     const toggleContent = (id: string) => {
         setExpandedContent((prev) => (prev === id ? null : id));
     };

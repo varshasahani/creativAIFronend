@@ -43,9 +43,10 @@
 
 /* Helper Text */
 .helperText {
-    font-size: var(--font-size-small);
-    color: var(--color-secondary);
-    font-weight: normal;
+    font-size: 12px; /* Smaller font size */
+    font-weight: 400; /* Lighter font weight */
+    color: #888; /* Optional: Make the text a lighter color */
+    margin-left: 8px; /* Add some spacing from the main label */
 }
 
 /* Inputs */
@@ -147,4 +148,8 @@
 
 .adMeta p {
     margin: 4px 0;
+}
+
+MultiSelect .label {
+   margin-bottom: 0;
 }
