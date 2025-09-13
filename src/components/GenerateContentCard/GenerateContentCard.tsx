@@ -83,7 +83,6 @@ const GenerateContentCard: React.FC = () => {
 
        // Validate channels
        const channelsArray = preferredChannels; // Use preferredChannels directly
-       console.log('Channels Array:', channelsArray);
        if (channelsArray.length < 1) {
            alert('You must select at least 1 channel.');
            return;

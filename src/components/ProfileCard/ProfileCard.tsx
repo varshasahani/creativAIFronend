@@ -2,30 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styles from './ProfileCard.module.css';
 import { getProfile, updateProfile } from '../../services/authService.ts';
 import MultiSelect from '../common/MultiSelect.tsx';
-import { ALLOWED_CHANNELS } from '../../constants.ts';
+import { ALLOWED_CHANNELS,toneMap,productTypeMap,languageMap } from '../../constants.ts';
 
-const languageMap = {
-    en: 'English',
-    es: 'Spanish',
-    fr: 'French',
-    hindi: 'Hindi',
-};
-
-const toneMap = {
-    formal: 'Formal',
-    casual: 'Casual',
-    professional: 'Professional',
-    playful: 'Playful',
-    'gen-z': 'Gen-Z',
-    millennial: 'Millennial',
-};
-
-const productTypeMap = {
-    clothes: 'Clothes',
-    beauty: 'Beauty',
-    medicine: 'Medicine',
-    supplements: 'Supplements',
-};
 
 const channelOptions = ALLOWED_CHANNELS
 
@@ -53,10 +31,6 @@ const ProfileCard: React.FC = () => {
                 } catch (err: any) {
                     if (err.response?.status === 401) {
                         // Token expired, try refreshing it
-                        accessToken = await refreshAccessToken();
-                        const data = await getProfile(accessToken);
-                        setProfile(data);
-                        setEditedProfile(data);
                     } else {
                         throw err;
                     }
@@ -89,17 +63,6 @@ const ProfileCard: React.FC = () => {
                 [name]: value,
             }));
         }
-    };
-
-    const handleChannelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const options = Array.from(e.target.selectedOptions, (option) => option.value);
-        setEditedProfile((prev: any) => ({
-            ...prev,
-            preferences: {
-                ...prev.preferences,
-                preferredChannels: options,
-            },
-        }));
     };
 
     const sanitizeProfilePayload = (profile: any) => {
@@ -274,6 +237,7 @@ const ProfileCard: React.FC = () => {
                                         </option>
                                     ))}
                                 </select>
+                                
                             ) : (
                                 <span>{productTypeMap[profile.preferences.defaultProductType]}</span>
                             )}

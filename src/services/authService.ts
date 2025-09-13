@@ -98,35 +98,6 @@ export const updateProfile = async (accessToken: string, updatedProfile: any): P
     }
 };
 
-// Refresh Token
-
-
-const refreshAccessToken = async () => {
-    try {
-        const refreshToken = localStorage.getItem('refreshToken');
-        if (!refreshToken) {
-            throw new Error('Refresh token is missing. Please log in again.');
-        }
-
-        const response = await fetch(`${BASE_URL}/auth/refresh-token`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ refreshToken }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to refresh access token.');
-        }
-
-        const { accessToken } = await response.json();
-        localStorage.setItem('accessToken', accessToken);
-        return accessToken;
-    } catch (err) {
-        console.error('Error refreshing token:', err);
-        throw err;
-    }
-};
-
 // Change Password
 export const changePassword = async (accessToken: string, payload: any): Promise<any> => {
     try {

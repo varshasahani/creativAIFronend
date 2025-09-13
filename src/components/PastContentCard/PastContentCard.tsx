@@ -17,7 +17,6 @@ const PastContentCard: React.FC = () => {
             try {
                 setLoading(true); // Set loading to true before the request
                 const data = await getUserContentRequests(currentPage, ITEMS_PER_PAGE); // Fetch data for the current page
-                console.log('Fetched Content:', data); // Debugging: Log the entire response
                 setPastContent(data.requests);
                 setTotalPages(data.totalPages); // Set total pages from the API response
             } catch (err: any) {

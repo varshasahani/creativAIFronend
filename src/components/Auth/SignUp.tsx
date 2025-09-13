@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { registerUser, loginUser } from '../../services/authService.ts';
 import styles from './Auth.module.css';
 import MultiSelect from '../common/MultiSelect.tsx';
-import { ALLOWED_CHANNELS } from '../../constants.ts';
+import { ALLOWED_CHANNELS,toneMap ,languageMap,productTypeMap} from '../../constants.ts';
 
 const SignUp: React.FC =  ({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) => void }) => {
     const [name, setName] = useState('');
@@ -11,10 +11,10 @@ const SignUp: React.FC =  ({ setIsAuthenticated }: { setIsAuthenticated: (value:
     const [password, setPassword] = useState('');
     const [company, setCompany] = useState('');
     const [phone, setPhone] = useState('');
-    const [defaultTone, setDefaultTone] = useState('Casual');
-    const [defaultLanguage, setDefaultLanguage] = useState('English');
+    const [defaultTone, setDefaultTone] = useState('casual');
+    const [defaultLanguage, setDefaultLanguage] = useState('en');
     const [preferredChannels, setpreferredChannels] = useState<string[]>(['Instagram', 'Facebook']);
-    const [defaultProductType, setDefaultProductType] = useState('Beauty');
+    const [defaultProductType, setDefaultProductType] = useState('beauty');
     const [brandDescription, setBrandDescription] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -56,10 +56,9 @@ const SignUp: React.FC =  ({ setIsAuthenticated }: { setIsAuthenticated: (value:
 
             const loginPayload = { email, password };
             const response = await loginUser(loginPayload);
-
             localStorage.setItem('accessToken', response.accessToken);
             localStorage.setItem('refreshToken', response.refreshToken);
-            localStorage.setItem('userId', response.user?._id);
+            localStorage.setItem('userId', response.userId);
             setIsAuthenticated(true);
             navigate('/');
         } catch (err: any) {
@@ -144,38 +143,47 @@ const SignUp: React.FC =  ({ setIsAuthenticated }: { setIsAuthenticated: (value:
                 </div>
                 <div className={styles.formGroup}>
                     <label htmlFor="tone" className={styles.label}>Tone</label>
-                    <input
-                        type="text"
-                        id="tone"
+                    <select
+                        name="preferences.defaultTone"
                         value={defaultTone}
                         onChange={(e) => setDefaultTone(e.target.value)}
                         className={styles.input}
-                        placeholder="Enter tone (e.g., casual, formal)"
-                        required
-                    />
+                        >
+                        {Object.entries(toneMap).map(([key, label]) => (
+                        <option key={key} value={key}>
+                            {label}
+                        </option>
+                            ))}
+                    </select>
                 </div>
                 <div className={styles.formGroup}>
                     <label htmlFor="language" className={styles.label}>Language</label>
-                    <input
-                        type="text"
-                        id="language"
+
+                     <select
+                        name="preferences.defaultLanguage"
                         value={defaultLanguage}
                         onChange={(e) => setDefaultLanguage(e.target.value)}
                         className={styles.input}
-                        placeholder="Enter language (e.g., English, Spanish)"
-                        required
-                    />
+                        >
+                        {Object.entries(languageMap).map(([key, label]) => (
+                        <option key={key} value={key}>{label}</option>
+                    ))}
+                    </select>
                 </div>
                 <div className={styles.formGroup}>
                     <label htmlFor="productType" className={styles.label}>Product Type</label>
-                    <input
-                        type="text"
-                        id="productType"
+                    <select
+                        name="preferences.defaultProductType"
                         value={defaultProductType}
                         onChange={(e) => setDefaultProductType(e.target.value)}
                         className={styles.input}
-                        required
-                    />
+                        >
+                        {Object.entries(productTypeMap).map(([key, label]) => (
+                        <option key={key} value={key}>
+                            {label}
+                        </option>
+                            ))}
+                    </select>
                 </div>
                 <div className={`${styles.formGroup} ${styles.fullWidth}`}>
     <MultiSelect
