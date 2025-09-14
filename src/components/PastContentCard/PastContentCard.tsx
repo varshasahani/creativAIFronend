@@ -72,14 +72,13 @@ const PastContentCard: React.FC = () => {
                                 },
                             };
                         }
-
                         const title = parsedContent.title || 'No Title Available';
                         const body = parsedContent.body || 'No Body Available';
                         const cta = parsedContent.cta || 'No CTA Available';
-                        const hashtags = parsedContent.meta?.hashtags?.join(' ') || '';
-                        const emojis = parsedContent.meta?.emojis?.join(' ') || '';
+                        const hashtags = Array.isArray(parsedContent?.hashtags) ? parsedContent.hashtags : [];
+const emojis = Array.isArray(parsedContent?.emojis) ? parsedContent.emojis : [];
                         const channel = parsedContent.channel || 'No Channel Available';
-
+                        console.log('hashtags', hashtags,emojis);
                         return (
                             <div key={content._id} className={styles.adCard}>
                                 {/* Title */}
@@ -93,19 +92,20 @@ const PastContentCard: React.FC = () => {
                                 {/* Expanded Content */}
                                 {expandedContent === content._id && (
                                     <div className={styles.expandedContent}>
-                                        <p className={styles.adBody}>{body}</p>
-                                        <p className={styles.adCTA}><strong>{cta}</strong></p>
-                                        <div className={styles.adMeta}>
-                                            <p>{hashtags}</p>
-                                            <p>{emojis}</p>
-                                        </div>
-                                        <p className={styles.adChannel}>
-                                            <strong>Channel:</strong> {channel}
-                                        </p>
+                                      
+                                                               
+                                                                                       <h3 className={styles.adTitle}>{title}</h3>
+                                                                                       <p className={styles.adBody}>{body}</p>
+                                                                                       <p className={styles.adCTA}><strong>{cta}</strong></p>
+                                                                                       <div className={styles.adMeta}>
+                                                                                           <p>{hashtags.join(' ')}</p>
+                                                                                           <p>{emojis.join(' ')}</p>
+                                                                                       </div>
                                         <p className={styles.adCreatedAt}>
                                             <strong>Created At:</strong>{' '}
                                             {new Date(content.createdAt).toLocaleString()}
                                         </p>
+                                        <div className={styles.channelTag}>{channel}</div>
                                     </div>
                                 )}
                             </div>
