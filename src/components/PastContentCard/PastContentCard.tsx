@@ -59,7 +59,7 @@ const PastContentCard: React.FC = () => {
                         // Parse the generatedContent JSON string
                         let parsedContent;
                         try {
-                            parsedContent = JSON.parse(content.generatedContent);
+                            parsedContent = content.generatedContent;
                         } catch (err) {
                             console.error('Error parsing generatedContent:', err);
                             parsedContent = {
@@ -73,12 +73,12 @@ const PastContentCard: React.FC = () => {
                             };
                         }
 
-                        const title = parsedContent.content.title || 'No Title Available';
-                        const body = parsedContent.content.body || 'No Body Available';
-                        const cta = parsedContent.content.cta || 'No CTA Available';
-                        const hashtags = parsedContent.content.meta?.hashtags?.join(' ') || '';
-                        const emojis = parsedContent.content.meta?.emojis?.join(' ') || '';
-                        const channel = parsedContent.content.channel || 'No Channel Available';
+                        const title = parsedContent.title || 'No Title Available';
+                        const body = parsedContent.body || 'No Body Available';
+                        const cta = parsedContent.cta || 'No CTA Available';
+                        const hashtags = parsedContent.meta?.hashtags?.join(' ') || '';
+                        const emojis = parsedContent.meta?.emojis?.join(' ') || '';
+                        const channel = parsedContent.channel || 'No Channel Available';
 
                         return (
                             <div key={content._id} className={styles.adCard}>
