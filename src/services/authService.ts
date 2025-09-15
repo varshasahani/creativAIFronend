@@ -1,4 +1,5 @@
 import axiosInstance from './axiosInstance.ts';
+import axios from 'axios';
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://content-creation-engine-production.up.railway.app/api/v1';
 
@@ -33,18 +34,19 @@ export const registerUser = async (payload: {
         });
 
         if (!response.ok) {
-            throw new Error('Registration failed');
+            const errorData = await response.json(); // Parse the error response
+            throw new Error(errorData.message || 'Failed to register user.');
         }
 
         return await response.json();
-    } catch (error) {
-        throw error;
+    } catch (error: any) {
+        throw error.message || 'An unexpected error occurred during registration.';
     }
 };
 export const loginUser = async (payload: { email: string; password: string }): Promise<any> => {
     try {
         // Make the POST request to the login endpoint
-        const response = await axiosInstance.post(`${BASE_URL}/auth/login`, payload, {
+        const response = await axios.post(`${BASE_URL}/auth/login`, payload, {
             headers: { 'Content-Type': 'application/json' },
         });
         // Ensure the response contains the necessary fields

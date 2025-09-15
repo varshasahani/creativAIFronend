@@ -62,7 +62,7 @@ const SignUp: React.FC =  ({ setIsAuthenticated }: { setIsAuthenticated: (value:
             setIsAuthenticated(true);
             navigate('/');
         } catch (err: any) {
-            setError(err.message || 'An error occurred during registration.');
+            setError(err || 'An error occurred during registration.');
         } finally {
             setLoading(false);
         }
