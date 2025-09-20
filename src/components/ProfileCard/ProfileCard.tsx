@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './ProfileCard.module.css';
 import { getProfile, updateProfile } from '../../services/authService.ts';
 import MultiSelect from '../common/MultiSelect.tsx';
-import { ALLOWED_CHANNELS,toneMap,productTypeMap,languageMap } from '../../constants.ts';
+import { ALLOWED_CHANNELS,toneMap,languageMap } from '../../constants.ts';
 
 
 const channelOptions = ALLOWED_CHANNELS
@@ -28,6 +28,7 @@ const ProfileCard: React.FC = () => {
                     const data = await getProfile(accessToken);
                     setProfile(data);
                     setEditedProfile(data);
+                    console.log('Profile data:', data);
                 } catch (err: any) {
                     if (err.response?.status === 401) {
                         // Token expired, try refreshing it
@@ -225,23 +226,27 @@ const ProfileCard: React.FC = () => {
                         <label className={styles.field}>
                             <strong>Product Type:</strong>
                             {isEditing ? (
-                                <select
-                                    name="preferences.defaultProductType"
-                                    value={editedProfile.preferences.defaultProductType}
-                                    onChange={handleInputChange}
-                                    className={styles.input}
-                                >
-                                    {Object.entries(productTypeMap).map(([key, label]) => (
-                                        <option key={key} value={key}>
-                                            {label}
-                                        </option>
-                                    ))}
-                                </select>
+                               
+                                
+                                                    <input
+                                                    type="text"
+                                                        id="productType"
+                                                        name="preferences.defaultProductType"
+                                                        value={editedProfile.preferences.defaultProductType}
+                                                        onChange={handleInputChange}
+                                                        className={styles.input}
+                                                        required
+                                                        >
+                                                      
+                                                    </input>
+                                               
                                 
                             ) : (
-                                <span>{productTypeMap[profile.preferences.defaultProductType]}</span>
+                                <span>{profile.preferences.defaultProductType}</span>
                             )}
                         </label>
+               
+
 
                         {/* Preferred Channels */}
                         <label className={styles.field}>

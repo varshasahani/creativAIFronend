@@ -99,6 +99,7 @@
 }
 
 .adCard {
+    position: relative;
     border: 1px solid #ddd;
     border-radius: 8px;
     width: 45%;

@@ -15,10 +15,3 @@ export const toneMap = {
     'gen-z': 'Gen-Z',
     millennial: 'Millennial',
 };
-
-export const productTypeMap = {
-    clothes: 'Clothes',
-    beauty: 'Beauty',
-    medicine: 'Medicine',
-    supplements: 'Supplements',
-};

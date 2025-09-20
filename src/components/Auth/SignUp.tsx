@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { registerUser, loginUser } from '../../services/authService.ts';
 import styles from './Auth.module.css';
 import MultiSelect from '../common/MultiSelect.tsx';
-import { ALLOWED_CHANNELS,toneMap ,languageMap,productTypeMap} from '../../constants.ts';
+import { ALLOWED_CHANNELS,toneMap ,languageMap} from '../../constants.ts';
 
 const SignUp: React.FC =  ({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) => void }) => {
     const [name, setName] = useState('');
@@ -172,19 +172,19 @@ const SignUp: React.FC =  ({ setIsAuthenticated }: { setIsAuthenticated: (value:
                 </div>
                 <div className={styles.formGroup}>
                     <label htmlFor="productType" className={styles.label}>Product Type</label>
-                    <select
+                    <input
+                    type="text"
+                        id="productType"
                         name="preferences.defaultProductType"
                         value={defaultProductType}
                         onChange={(e) => setDefaultProductType(e.target.value)}
                         className={styles.input}
+                        required
                         >
-                        {Object.entries(productTypeMap).map(([key, label]) => (
-                        <option key={key} value={key}>
-                            {label}
-                        </option>
-                            ))}
-                    </select>
+                      
+                    </input>
                 </div>
+            
                 <div className={`${styles.formGroup} ${styles.fullWidth}`}>
     <MultiSelect
         label="Preferred Channels"
